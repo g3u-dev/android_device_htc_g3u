@@ -1,0 +1,43 @@
+From 72961ab566e7538c35d2fe6e71d4e5f14da4849f Mon Sep 17 00:00:00 2001
+From: 4m8 <4m@I.oN>
+Date: Wed, 6 Jan 2016 16:27:58 +0100
+Subject: start hostapd driver early
+
+Change-Id: I59cd5df014d23f6516875f39b6f974564edb752b
+---
+ SoftapController.cpp | 12 +++++++-----
+ 1 file changed, 7 insertions(+), 5 deletions(-)
+
+diff --git a/SoftapController.cpp b/SoftapController.cpp
+index 9e50f6e..34acfea 100644
+--- a/SoftapController.cpp
++++ b/SoftapController.cpp
+@@ -122,6 +122,13 @@ int SoftapController::setCommand(char *iface, const char *fname, unsigned buflen
+ int SoftapController::startDriver(char *iface) {
+     int ret;
+ 
++#ifdef HAVE_HOSTAPD
++    ifc_init();
++    ret = ifc_up(iface);
++    ifc_close();
++    usleep(AP_DRIVER_START_DELAY);
++#endif
++
+     if (mSock < 0) {
+         ALOGE("Softap driver start - failed to open socket");
+         return -1;
+@@ -141,11 +148,6 @@ int SoftapController::startDriver(char *iface) {
+         ALOGE("Softap driver start: %d", ret);
+         return ret;
+     }
+-#ifdef HAVE_HOSTAPD
+-    ifc_init();
+-    ret = ifc_up(iface);
+-    ifc_close();
+-#endif
+     usleep(AP_DRIVER_START_DELAY);
+     ALOGD("Softap driver start: %d", ret);
+     return ret;
+-- 
+2.5.0
+

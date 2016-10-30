@@ -1,0 +1,40 @@
+From 5887eb86bd34b7e613d9e5034574d355ad576b60 Mon Sep 17 00:00:00 2001
+From: 4m8 <4m@I.oN>
+Date: Wed, 6 Jan 2016 16:02:21 +0100
+Subject: hide sideload errors caused by rmt_storage
+
+Change-Id: I2675bd46e7f8343188dc8ecd0813deed4e37ccd4
+---
+ adb_install.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/adb_install.c b/adb_install.c
+index a87858c..3ae1e49 100644
+--- a/adb_install.c
++++ b/adb_install.c
+@@ -36,7 +36,7 @@ static void
+ set_usb_driver(int enabled) {
+     int fd = open("/sys/class/android_usb/android0/enable", O_WRONLY);
+     if (fd < 0) {
+-        ui_print("failed to open driver control: %s\n", strerror(errno));
++        //ui_print("failed to open driver control: %s\n", strerror(errno));
+         return;
+     }
+ 
+@@ -48,11 +48,11 @@ set_usb_driver(int enabled) {
+     }
+ 
+     if (status < 0) {
+-        ui_print("failed to set driver control: %s\n", strerror(errno));
++        //ui_print("failed to set driver control: %s\n", strerror(errno));
+     }
+ 
+     if (close(fd) < 0) {
+-        ui_print("failed to close driver control: %s\n", strerror(errno));
++        //ui_print("failed to close driver control: %s\n", strerror(errno));
+     }
+ }
+ 
+-- 
+2.5.0
+

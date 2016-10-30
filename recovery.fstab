@@ -1,0 +1,14 @@
+# recovery.fstab for g3u
+# (/blinkfeed_data repurposed as /sd-ext )
+#
+#mount point	fstype	device			[device2]
+/boot       	emmc	/dev/block/mmcblk0p33
+/sdcard   	vfat	/dev/block/mmcblk1p1	/dev/block/mmcblk1
+/system     	ext4	/dev/block/mmcblk0p39
+/data       	ext4	/dev/block/mmcblk0p43
+/devlog		ext4	/dev/block/mmcblk0p36
+/misc       	emmc	/dev/block/mmcblk0p17
+/sd-ext 	ext4	/dev/block/mmcblk0p41
+/cache      	ext4	/dev/block/mmcblk0p38
+/recovery   	emmc	/dev/block/mmcblk0p34
+
